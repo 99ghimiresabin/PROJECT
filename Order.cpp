@@ -25,126 +25,135 @@ Order::~Order() {
 string Order::getOrderNumber(void) {
 	return OrderNumber;
 }
-Date Order::getOrderDate(void) {
+Date Order::getOrderDate(void)
+{
 	return OrderDate;
 }
-vector<OrderItem*> Order::getItemsInOrder(void) {
+vector<OrderItem*> Order::getItemsInOrder(void)
+{
 	return ItemsInOrder;
 }
-Customer* Order::getOrderCustomer(void) {
+Customer* Order::getOrderCustomer(void)
+{
 	return OrderCustomer;
 }
 
-void Order::setOrderNumber(string aString) {
+void Order::setOrderNumber(string aString)
+{
 	OrderNumber = aString;
 }
-void Order::setOrderDate(int year, int month, int day) {
+void Order::setOrderDate(int year, int month, int day)
+{
 	OrderDate.setYear(year);
 	OrderDate.setMonth(month);
 	OrderDate.setDay(day);
 }
-void Order::setItemsInOrder(vector<OrderItem*> aVector) {
+void Order::setItemsInOrder(vector<OrderItem*> aVector)
+{
 	ItemsInOrder = aVector;
 }
-void Order::setOrderCustomer(Customer* aCustomer) {
+void Order::setOrderCustomer(Customer* aCustomer)
+{
 	OrderCustomer = aCustomer;
 }
 
-void Order::readFoodItems(string orderNumber) {
-	string tempOrderNumber;
-	string tempItemNumber;
-	string tempItemDescription;
-	int tempQuantity;
-	double tempCustomerCost;
-	double tempVendorCost;
-	bool tempTaxExempt;
-	int tempYear;
-	int tempMonth;
-	int tempDay;
-	int tempCalories;
-	int tempFat;
-	string line;
+void Order::readFoodItems(string orderNumber)
+{
+	string TempOrderNumber;
+	string TempItemNumber;
+	string TempItemDescription;
+	int TempQuantity;
+	double TempCustomerCost;
+	double TempVendorCost;
+	bool TempTaxExempt;
+	int TempYear;
+	int TempMonth;
+	int TempDay;
+	int TempCalories;
+	int TempFat;
+	string str;
 
 	string foodFile = "FoodItems.txt";
-	ifstream isFoodFile;
-	isFoodFile.open(foodFile.c_str());
-	do {
-		isFoodFile >> tempOrderNumber >> tempItemNumber >> tempItemDescription
-				>> tempQuantity >> tempCustomerCost >> tempVendorCost
-				>> tempTaxExempt >> tempYear >> tempMonth >> tempDay
-				>> tempCalories >> tempFat;
+	ifstream FoodFile;
+	FoodFile.open(foodFile.c_str());
+	do
+    {
+		FoodFile >> TempOrderNumber >> TempItemNumber >> TempItemDescription
+				>> TempQuantity >> TempCustomerCost >> TempVendorCost
+				>> TempTaxExempt >> TempYear >> TempMonth >> TempDay
+				>> TempCalories >> TempFat;
 
-		if (tempOrderNumber == orderNumber) {
+		if (TempOrderNumber == orderNumber) {
 			FoodItem *aFoodItem = new FoodItem;
-			aFoodItem->setOrderNumber(tempOrderNumber);
-			aFoodItem->setItemNumber(tempItemNumber);
-			aFoodItem->setItemDescription(tempItemDescription);
-			aFoodItem->setQuantity(tempQuantity);
-			aFoodItem->setCustomerCost(tempCustomerCost);
-			aFoodItem->setVendorCost(tempVendorCost);
-			aFoodItem->setTaxExempt(tempTaxExempt);
-			aFoodItem->setExpirationDate(tempYear, tempMonth, tempDay);
-			aFoodItem->setCalories(tempCalories);
-			aFoodItem->setFat(tempFat);
+			aFoodItem->setOrderNumber(TempOrderNumber);
+			aFoodItem->setItemNumber(TempItemNumber);
+			aFoodItem->setItemDescription(TempItemDescription);
+			aFoodItem->setQuantity(TempQuantity);
+			aFoodItem->setCustomerCost(TempCustomerCost);
+			aFoodItem->setVendorCost(TempVendorCost);
+			aFoodItem->setTaxExempt(TempTaxExempt);
+			aFoodItem->setExpirationDate(TempYear, TempMonth, TempDay);
+			aFoodItem->setCalories(TempCalories);
+			aFoodItem->setFat(TempFat);
 			ItemsInOrder.push_back(aFoodItem);
 		}
-	} while (getline(isFoodFile, line));
+	} while (getline(FoodFile, str));
 
-	isFoodFile.close();
+	FoodFile.close();
 }
 
-void Order::readMediaItems(string orderNumber) {
-	string tempOrderNumber;
-	string tempItemNumber;
-	string tempItemDescription;
-	int tempQuantity;
-	double tempCustomerCost;
-	double tempVendorCost;
-	bool tempTaxExempt;
-	int tempYear;
-	int tempMonth;
-	int tempDay;
-	string tempAuthor;
-	string tempISBNNumber;
-	string line;
+void Order::readMediaItems(string orderNumber)
+{
+	string TempOrderNumber;
+	string TempItemNumber;
+	string TempItemDescription;
+	int TempQuantity;
+	double TempCustomerCost;
+	double TempVendorCost;
+	bool TempTaxExempt;
+	int TempYear;
+	int TempMonth;
+	int TempDay;
+	string TempAuthor;
+	string TempISBNNumber;
+	string str;
 
 	string mediaFile = "MediaItems.txt";
-	ifstream isMediaFile;
-	isMediaFile.open(mediaFile.c_str());
+	ifstream
+    MediaFile;
+	MediaFile.open(mediaFile.c_str());
 	do {
 
-		isMediaFile >> tempOrderNumber >> tempItemNumber >> tempItemDescription
-				>> tempQuantity >> tempCustomerCost >> tempVendorCost
-				>> tempTaxExempt >> tempYear >> tempMonth >> tempDay
-				>> tempAuthor >> tempISBNNumber;
+		MediaFile >> TempOrderNumber >> TempItemNumber >> TempItemDescription>> TempQuantity >> TempCustomerCost >> TempVendorCost>> TempTaxExempt >> TempYear >> TempMonth >> TempDay>> TempAuthor >> TempISBNNumber;
 
-		if (tempOrderNumber == orderNumber) {
+		if (TempOrderNumber == orderNumber) {
 			MediaItem *aMediaItem = new MediaItem;
-			aMediaItem->setOrderNumber(tempOrderNumber);
-			aMediaItem->setItemNumber(tempItemNumber);
-			aMediaItem->setItemDescription(tempItemDescription);
-			aMediaItem->setQuantity(tempQuantity);
-			aMediaItem->setCustomerCost(tempCustomerCost);
-			aMediaItem->setVendorCost(tempVendorCost);
-			aMediaItem->setTaxExempt(tempTaxExempt);
-			aMediaItem->setPublicationDate(tempYear, tempMonth, tempDay);
-			aMediaItem->setAuthorName(tempAuthor);
-			aMediaItem->setISBNNumber(tempISBNNumber);
+			aMediaItem->setOrderNumber(TempOrderNumber);
+			aMediaItem->setItemNumber(TempItemNumber);
+			aMediaItem->setItemDescription(TempItemDescription);
+			aMediaItem->setQuantity(TempQuantity);
+			aMediaItem->setCustomerCost(TempCustomerCost);
+			aMediaItem->setVendorCost(TempVendorCost);
+			aMediaItem->setTaxExempt(TempTaxExempt);
+			aMediaItem->setPublicationDate(TempYear, TempMonth, TempDay);
+			aMediaItem->setAuthorName(TempAuthor);
+			aMediaItem->setISBNNumber(TempISBNNumber);
 			ItemsInOrder.push_back(aMediaItem);
-		} //if
-	} while (getline(isMediaFile, line));
-	isMediaFile.close();
+		}
+	} while (getline(MediaFile, str));
+	MediaFile.close();
 }
-void Order::readElectronicItems(string orderNumber) {
-	string tempOrderNumber;
-	string tempItemNumber;
-	string tempItemDescription;
-	int tempQuantity;
-	double tempCustomerCost;
-	double tempVendorCost;
-	string tempTaxExempt;
-	string tempType;
-	int tempWarrantyMonths;
+void Order::readElectronicItems(string orderNumber)
+{
+	string TempOrderNumber;
+	string TempItemNumber;
+	string TempItemDescription;
+	int TempQuantity;
+	double TempCustomerCost;
+	double TempVendorCost;
+	string TempTaxExempt;
+	string TempType;
+	int TempWarrantyMonths;
 	string line;
 
 	string ElectronicFile = "ElectronicItems.txt";
@@ -152,54 +161,63 @@ void Order::readElectronicItems(string orderNumber) {
 	isElectronicFile.open(ElectronicFile.c_str());
 	do {
 
-		isElectronicFile >> tempOrderNumber >> tempItemNumber
-				>> tempItemDescription >> tempQuantity >> tempCustomerCost
-				>> tempVendorCost >> tempTaxExempt >> tempType
-				>> tempWarrantyMonths;
+		isElectronicFile >> TempOrderNumber >> TempItemNumber
+				>> TempItemDescription >> TempQuantity >> TempCustomerCost
+				>> TempVendorCost >> TempTaxExempt >> TempType
+				>> TempWarrantyMonths;
 
-		if (tempOrderNumber == orderNumber) {
+		if (TempOrderNumber == orderNumber) {
 			ElectronicItem *aElectronicItem = new ElectronicItem;
-			aElectronicItem->setOrderNumber(tempOrderNumber);
-			aElectronicItem->setItemNumber(tempItemNumber);
-			aElectronicItem->setItemDescription(tempItemDescription);
-			aElectronicItem->setQuantity(tempQuantity);
-			aElectronicItem->setCustomerCost(tempCustomerCost);
-			aElectronicItem->setVendorCost(tempVendorCost);
-			if (tempTaxExempt == "Y") {
+			aElectronicItem->setOrderNumber(TempOrderNumber);
+			aElectronicItem->setItemNumber(TempItemNumber);
+			aElectronicItem->setItemDescription(TempItemDescription);
+			aElectronicItem->setQuantity(TempQuantity);
+			aElectronicItem->setCustomerCost(TempCustomerCost);
+			aElectronicItem->setVendorCost(TempVendorCost);
+			if (TempTaxExempt == "Y")
+            {
 				aElectronicItem->setTaxExempt(true);
-			} else {
+			} else
+            {
 				aElectronicItem->setTaxExempt(false);
 			}
-			if (tempType == "0") {
+			if (TempType == "0")
+            {
 				aElectronicItem->setType(TV);
-			} else if (tempType == "1") {
+			} else if (TempType == "1")
+            {
 				aElectronicItem->setType(PS4);
-			} else if (tempType == "2") {
+			} else if (TempType == "2")
+            {
 				aElectronicItem->setType(DVDPLAYER);
-			} else {
+			} else
+            {
 				aElectronicItem->setType(PHONE);
 			}
-			aElectronicItem->setWarrantyMonth(tempWarrantyMonths);
+			aElectronicItem->setWarrantyMonth(TempWarrantyMonths);
 			ItemsInOrder.push_back(aElectronicItem);
-		} //if
-	} while (getline(isElectronicFile, line));
+		}
+	}
+    while (getline(isElectronicFile, line));
 
 	isElectronicFile.close();
 
 }
 
-double Order::getTotalOfOrder(void) {
+double Order::getTotalOfOrder(void)
+{
 	vector<OrderItem*> ItemsInOrder;
 	double cost;
 	double totalCost = 0;
 	int tempQuantity;
 	double tempCustomerCost;
 
-	for (unsigned int i = 0; i < ItemsInOrder.size(); i++) {
+	for (unsigned int i = 0; i < ItemsInOrder.size(); i++)
+    {
 		tempQuantity = ItemsInOrder[i]->getQuantity();
 		tempCustomerCost = ItemsInOrder[i]->getCustomerCost();
 		cost = tempQuantity * tempCustomerCost;
 		totalCost += cost;
-	} //for
+	}
 	return totalCost;
 }

@@ -3,28 +3,29 @@
 #include "ElectronicItem.hpp"
 
 ElectronicItem::ElectronicItem() {
-	// TODO Auto-generated constructor stub
-
+    // TODO Auto-generated constructor stub
+    
 }
 
 ElectronicItem::~ElectronicItem() {
-	// TODO Auto-generated destructor stub
+    // TODO Auto-generated destructor stub
 }
 
-TypeOfItem ElectronicItem::getType(void){
-	return Type;
+ItemType ElectronicItem::getType(void){
+    return Type;
 }
-int ElectronicItem::getWarrantyMonth(void){
-	return WarrantyMonths;
+int ElectronicItem::getWarranty(void)
+{
+    return Warranty;
 }
 
-void ElectronicItem::setType(TypeOfItem tempType){
-	Type = tempType;
+void ElectronicItem::setType(ItemType tempType){
+    Type = tempType;
 }
-void ElectronicItem::setWarrantyMonth(int anInt){
-	WarrantyMonths = anInt;
+void ElectronicItem::setWarranty(int anInt){
+    Warranty = anInt;
 }
 
 string ElectronicItem::whoAmI(void){
-	return "Electronic Item";
+    return "Electronic Item";
 }

@@ -5,23 +5,23 @@
 
 class FoodItem : public OrderItem {
 private:
-	Date ExpirationDate;
-	int Calories;
-	int Fat;
-
-
+    Date ExpirationDate;
+    int Calories;
+    int Fat;
+    
+    
 public:
-	Date getExpirationDate(void);
-	int getCalories(void);
-	int getFat(void);
-
-	void setExpirationDate(int,int,int);
-	void setCalories(int);
-	void setFat(int);
-
-	virtual string whoAmI(void);
-	FoodItem();
-	virtual ~FoodItem();
+    Date getExpirationDate(void);
+    int getCalories(void);
+    int getFat(void);
+    
+    void setExpirationDate(int a,int b,int c);
+    void setCalories(int a);
+    void setFat(int a);
+    
+    virtual string whoAmI(void);
+    FoodItem();
+    virtual ~FoodItem();
 };
 
 #endif /* FOODITEM_HPP_ */

@@ -17,113 +17,161 @@
 //*****************
 
 #include <iostream>
-#include<vector>
+#include <vector>
 #include "Date.hpp"
 #include "Customer.hpp"
 #include "Order.hpp"
 #include <fstream>
 #include <iomanip>
 #include <iostream>
-
+#include "ElectronicItem.hpp"
+#include "MediaItem.hpp"
 
 using namespace std;
 
-int main() {
-	string customerFile = "CustomerFile.txt";
+int main(int Argc, char *Argv[] )
+{
+    
+    if(Argc > 2)
+    {
+        cout << "Error Exist ! more than two arguements " << endl;
+        return NULL;
+    }
+
+    
 	ifstream CustomerFile;
-	CustomerFile.open(customerFile.c_str());
+	CustomerFile.open("CustomerFile.txt");
 
-	string orderFile = "OrderFile.txt";
 	ifstream OrderFile;
-	OrderFile.open(orderFile.c_str());
+	OrderFile.open("OrderFile.txt");
 
-	vector<OrderItem*> theItems;
-	vector<Customer*> theCustomers;
-	vector<Order*> theOrders;
+	vector<OrderItem*> TheOrderItem;
+	vector<Customer*> TheCustomer;
+	vector<Order*> TheOrder;
 
 	string str;
-	string tempCustomerNumber;
-	string tempCustomerName;
-	string tempEmail;
+	string TempCustomerNumber;
+	string TempCustomerName;
+	string TempEmail;
 	int TempYear;
 	int TempMonth;
 	int TempDay;
-	string tempOrderNumber;
-	Customer* currentCustomer = nullptr;
+	string TempOrderNumber;
+	Customer* myCustomer = nullptr;
 
-	do {
+	do
+    {
 		Customer *aCustomer = new Customer();
-		CustomerFile >> tempCustomerNumber >> tempCustomerName >> tempEmail
-				>> TempYear >> TempMonth >> TempDay;
-		aCustomer->setCustomerNumber(tempCustomerNumber);
-		aCustomer->setCustomerName(tempCustomerName);
-		aCustomer->setEmail(tempEmail);
+		CustomerFile >> TempCustomerNumber >> TempCustomerName >> TempEmail>> TempYear >> TempMonth >> TempDay;
+		aCustomer->setCustomerNumber(TempCustomerNumber);
+		aCustomer->setCustomerName(TempCustomerName);
+		aCustomer->setEmail(TempEmail);
 		aCustomer->setDateJoined(TempYear, TempMonth, TempDay);
-		theCustomers.push_back(aCustomer);
-	} while (getline(CustomerFile, str));
+		TheCustomer.push_back(aCustomer);
+    }
+    while (getline(CustomerFile, str));
 	CustomerFile.close();
 
     
     
-	do {
-		OrderFile >> tempOrderNumber >> TempYear >> TempMonth >> TempDay>> tempCustomerNumber;
-		for (unsigned int i = 0; i < theCustomers.size(); i++)
+	do
+    {
+		OrderFile >> TempOrderNumber >> TempYear >> TempMonth >> TempDay>> TempCustomerNumber;
+		for ( int i = 0; i < TheCustomer.size(); i++)
         {
-			if (theCustomers[i]->getCustomerNumber() == tempCustomerNumber)
+			if (TheCustomer[i]->getCustomerNumber() == TempCustomerNumber)
             {
-				currentCustomer = theCustomers[i];
+				myCustomer = TheCustomer[i];
 			}
 		}
-		Order *aOrder = new Order(currentCustomer, tempOrderNumber);
-		aOrder->setOrderNumber(tempOrderNumber);
-		aOrder->setOrderDate(TempYear, TempMonth, TempDay);
-		theOrders.push_back(aOrder);
-	} while (getline(OrderFile,str));
+        
+		Order *anOrder = new Order(myCustomer, TempOrderNumber);
+		anOrder->setOrderNumber(TempOrderNumber);
+		anOrder->setOrderDate(TempYear, TempMonth, TempDay);
+		TheOrder.push_back(anOrder);
+    }
+    while (getline(OrderFile,str));
 	OrderFile.close();
     
-
-	cout << left << setw(20) << "Order Report" << endl;
-
-	for (unsigned int i = 0; i < theOrders.size(); i++) {
-
-		cout << setw(20) << "==============================" << endl;
-		cout << right << setw(15) << "Order ID" << setw(20) << "Customer ID"<< setw(20) << "Order Date" << setw(30) << "Customer" << endl;
-		cout << right << setw(15) << "--------" << setw(20) << "-----------"<< setw(20) << "----------" << setw(30) << "--------" << endl;
-
-		cout << right << setw(15) << theOrders[i]->getOrderNumber() << setw(20)
-				<< theCustomers[i]->getCustomerNumber() << setw(20)
-				<< theCustomers[i]->getCustomerNumber() << setw(30)
-				<< theCustomers[i]->getCustomerName() << endl;
-		cout << right << setw(21) << "--------------" << endl;
-
-		currentCustomer = theOrders[i]->getOrderCustomer();
-		theItems = theOrders[i]->getItemsInOrder();
-
-		cout << right << setw(22) << "Food Items Ordered:" << setw(30) << "Item Number"<< setw(30) << "Item Description" << setw(20) << "Calories"<< setw(15) << "Cost" << endl;
-		cout << right << setw(22) << "-------------------" << setw(30) << "-----------"<< setw(30) << "----------------" << setw(20) << "--------"<< setw(15) << "----" << endl;
-       long  int fileSize = theOrders[i]->getItemsInOrder().size();
-
-        for (unsigned int i = 0; i <  fileSize; i++) {
-			cout << setw(50)<< theItems[i]->getItemNumber() << setw(30)<<theItems[i]->getItemDescription() << endl;
-		}
-        cout << right << setw(22) << "Media Items Ordered:" << setw(30) << "Item Number"
-        << setw(30) << "Item Description" << setw(20) << "Calories"
-        << setw(15) << "Cost" << endl;
-        cout << right << setw(22) << "-------------------" << setw(30) << "-----------"
-        << setw(30) << "----------------" << setw(20) << "--------"
-        << setw(15) << "----" << endl;
     
-        cout << "The total for your order is :"<< theOrders[i]->getTotalOfOrder()<< endl;
+	cout << "Order Report" << endl;
+    
+    
+
+    long int orderSize = TheOrder.size();
+	for (int i = 0; i < orderSize ; i++) {
+
+		cout << setw(21) <<"=====================" << endl;
+		cout << setw(16) << "Order ID" << setw(21) << "Customer ID"<< setw(21) << "Order Date" << setw(31) << "Customer" << endl;
+		cout << setw(16) << "--------" << setw(21) << "-----------"<< setw(21) << "----------" << setw(31) << "--------" << endl;
+
+		cout << setw(16) << TheOrder[i]->getOrderNumber() << setw(21)<< TheCustomer[i]->getCustomerNumber()<< setw(21)<< TheOrder[i]->getOrderDate() << setw(33)<< TheCustomer[i]->getCustomerName() << endl;
+		cout << setw(21) << "--------------" << endl;
+
+		myCustomer = TheOrder[i]->getOrderCustomer();
+		TheOrderItem = TheOrder[i]->getItemsInOrder();
+         long  int ItemsInOrderFileSize = TheOrder[i]->getItemsInOrder().size();
+
+        cout << setw(22) << "Food Items Ordered:" << setw(29)<< "Item Number" << setw(30) << "Item Description"<< setw(20) << "Calories" << setw(15) << "Cost" << endl;
+       cout  << setw(52)<< "-----------" << setw(30) << "----------------"<< setw(20) << "--------" << setw(15) << "----" << endl;
+        
+        
+        
+        for (int x = 0; x < ItemsInOrderFileSize;x++)
+        {
+            if (TheOrderItem[x]->whoAmI() == "Food Item")
+            {
+                FoodItem* foodItem = static_cast<FoodItem *>(TheOrderItem[x]);
+                cout<< setw(52) << TheOrderItem[x]->getItemNumber()<< setw(30) << TheOrderItem[x]->getItemDescription()<< setw(20) << foodItem->getCalories() << setw(10)<< "$" << TheOrderItem[x]->getCustomerCost() << endl;
+                
+            }
+        }
+        
+        cout << setw(21) << "--------------" << endl;
+        cout << setw(22) << "Media Items Ordered:" << setw(30)<< "Item Number" << setw(30) << "Item Description"<< setw(20) << "ISBN" << setw(15) << "Cost" <<endl;
+        cout << setw(52)<< "-----------" << setw(30) << "----------------"<< setw(20) << "--------" << setw(15) << "----" << endl;
+        
+        
+        
+        
+        for (int i= 0; i < ItemsInOrderFileSize; i++)
+        {
+            if (TheOrderItem[i]->whoAmI() == "Media Item")
+            {
+                MediaItem* mediaItem = static_cast<MediaItem *>(TheOrderItem[i]);
+                cout << setw(52) << TheOrderItem[i]->getItemNumber()<< setw(30) << TheOrderItem[i]->getItemDescription()<< setw(20) << mediaItem->getISBNNumber()<< setw(10) << "$" <<TheOrderItem[i]->getCustomerCost()<< endl;
+            }
+        }
+        
+        cout << setw(21) << "--------------" << endl;
+        cout << setw(22) << "Electronic Items Ordered:" << setw(30)<< "Item Number" << setw(30) << "Item Description"<< setw(20) << "Warrenty" << setw(12) << "Cost" <<endl;
+        cout << setw(52)<< "-----------" << setw(30) << "----------------"<< setw(20) << "--------" << setw(15) << "----" << endl;
+        
+        
+
+        for (int i = 0; i <ItemsInOrderFileSize; i++)
+        {
+            if (TheOrderItem[i]->whoAmI() == "Electronic Item")
+            {
+                ElectronicItem* electronicItem =static_cast<ElectronicItem *>(TheOrderItem[i]);
+                cout << setw(52)<< TheOrderItem[i]->getItemNumber()<< setw(30) << TheOrderItem[i]->getItemDescription()<< setw(20) <<electronicItem->getWarranty()
+                << setw(10) << "$" << TheOrderItem[i]->getCustomerCost()<< endl;
+            }
+        }
+        cout << "Total for this order will be: " << "$"<< TheOrder[i]->getTotalOfOrder() << endl;
     }
+    
+    for(int i = 0; i < TheCustomer.size(); i++)
+    {
+        delete TheCustomer[i];
+    }
+    
+    
+    for (int i = 0; i < TheOrderItem.size(); i++)
+        {
+            delete TheOrderItem[i];
+        }
 
-for (unsigned int i = 0; i < theCustomers.size(); i++) {
-
-}
-//
-//
-//	delete aOrder;
-
-	cout << "Program ending, have a nice day" << endl; // prints !!!Hello World!!!
 	return 0;
-} //main
+}
 

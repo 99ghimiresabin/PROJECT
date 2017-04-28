@@ -11,32 +11,32 @@ using namespace std;
 
 class Order{
 private:
-	string OrderNumber;
-	Date OrderDate;
-	vector<OrderItem*> ItemsInOrder;
-	Customer *OrderCustomer;
-
-
+    string OrderNumber;
+    Date OrderDate;
+    vector<OrderItem*> ItemsInOrder;
+    Customer *OrderCustomer;
+    
+    
 public:
-
-	string getOrderNumber(void);
-	Date getOrderDate(void);
-	vector<OrderItem*> getItemsInOrder(void);
-	Customer* getOrderCustomer(void);
-
-	void setOrderNumber(string);
-	void setOrderDate(int,int,int);
-	void setItemsInOrder(vector<OrderItem*>);
-	void setOrderCustomer(Customer*);
-
-	void readFoodItems(string);
-	void readMediaItems(string);
-	void readElectronicItems(string);
-
-	double getTotalOfOrder(void);
-
-	Order(Customer*,string);
-	virtual ~Order();
+    
+    string getOrderNumber(void);
+    string getOrderDate(void);
+    vector<OrderItem*> getItemsInOrder(void);
+    Customer* getOrderCustomer(void);
+    
+    void setOrderNumber(string);
+    void setOrderDate(int,int,int);
+    void setItemsInOrder(vector<OrderItem*>);
+    void setOrderCustomer(Customer*);
+    
+    void readFoodItems(string);
+    void readMediaItems(string);
+    void readElectronicItems(string);
+    
+    double getTotalOfOrder(void);
+    
+    Order(Customer*,string);
+    virtual ~Order();
 };
 
 #endif /* ORDER_HPP_ */

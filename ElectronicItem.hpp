@@ -8,15 +8,15 @@
 
 class ElectronicItem: public OrderItem {
 private:
-	TypeOfItem Type;
-	int WarrantyMonths;
+	ItemType Type;
+	int Warranty;
 public:
 
-	TypeOfItem getType(void);
-	int getWarrantyMonth(void);
+	ItemType getType(void);
+	int getWarranty(void);
 
-	void setType(TypeOfItem);
-	void setWarrantyMonth(int);
+	void setType(ItemType);
+	void setWarranty(int);
 
 	ElectronicItem();
 	virtual ~ElectronicItem();

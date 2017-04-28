@@ -4,34 +4,34 @@
 #include "FoodItem.hpp"
 
 FoodItem::FoodItem() {
-	// TODO Auto-generated constructor stub
-
+    // TODO Auto-generated constructor stub
+    
 }
 
 FoodItem::~FoodItem() {
-	// TODO Auto-generated destructor stub
+    // TODO Auto-generated destructor stub
 }
 Date FoodItem::getExpirationDate(void){
-	return ExpirationDate;
+    return ExpirationDate;
 }
 int FoodItem::getCalories(void){
-	return Calories;
+    return Calories;
 }
 int FoodItem::getFat(void){
-	return Fat;
+    return Fat;
 }
 
 void FoodItem::setExpirationDate(int year,int month, int day){
-	ExpirationDate.setYear(year);
-	ExpirationDate.setMonth(month);
-	ExpirationDate.setDay(day);
+    ExpirationDate.setYear(year);
+    ExpirationDate.setMonth(month);
+    ExpirationDate.setDay(day);
 }
 void FoodItem::setCalories(int anInt){
-	Calories = anInt;
+    Calories = anInt;
 }
 void FoodItem::setFat(int anInt){
-	Fat = anInt;
+    Fat = anInt;
 }
 string FoodItem::whoAmI(void){
-	return "Food Item";
+    return "Food Item";
 }
